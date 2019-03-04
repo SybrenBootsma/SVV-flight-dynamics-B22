@@ -2,7 +2,7 @@
 """
 Created on Mon Mar  4 14:09:15 2019
 
-@author: sybre
+@author: Sybren
 """
 
 Joe = 0.
