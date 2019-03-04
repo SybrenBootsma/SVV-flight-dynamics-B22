@@ -6,3 +6,4 @@ Created on Mon Mar  4 14:09:15 2019
 """
 
 Joe = 0.
+Supervo = 1.
