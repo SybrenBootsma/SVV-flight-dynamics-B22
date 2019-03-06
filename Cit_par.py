@@ -1,7 +1,7 @@
-from numpy import *
+import numpy as np
 #Citation 550 - Linear simulation
 
-xcg = 0.25 * c
+
 
 #Stationary flight condition
 
@@ -14,13 +14,13 @@ th0    =             # pitch angle in the stationary flight condition [rad]
 m      =             # mass [kg]
 
 # aerodynamic properties
-e      =             # Oswald factor [ ]
-CD0    =             # Zero lift drag coefficient [ ]
-CLa    =             # Slope of CL-alpha curve [ ]
+e      = 0.8         # Oswald factor [ ]
+CD0    = 0.04       # Zero lift drag coefficient [ ]
+CLa    = 5.084        # Slope of CL-alpha curve [ ]
 
 # Longitudinal stability
-Cma    =             # longitudinal stabilty [ ]
-Cmde   =             # elevator effectiveness [ ]
+Cma    = -0.5626         # longitudinal stabilty [ ]
+Cmde   = -1.1642       # elevator effectiveness [ ]
 
 # Aircraft geometry
 
@@ -35,7 +35,8 @@ bh     = 5.791	          # stabilser span [m]
 A      = b ** 2 / S      # wing aspect ratio [ ]
 Ah     = bh ** 2 / Sh    # stabilser aspect ratio [ ]
 Vh_V   = 1	          # [ ]
-ih     = -2 * pi / 180   # stabiliser angle of incidence [rad]
+ih     = -2 * np.pi / 180   # stabiliser angle of incidence [rad]
+xcg = 0.25 * c
 
 # Constant values concerning atmosphere and gravity
 
@@ -86,6 +87,7 @@ CZadot = -0.00350
 CZq    = -5.66290
 CZde   = -0.69612
 
+Cm0    = +0.0297 #added from C.2
 Cmu    = +0.06990
 Cmadot = +0.17800
 Cmq    = -8.79415
