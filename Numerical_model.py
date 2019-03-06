@@ -1,6 +1,15 @@
 from Cit_par import*
 from control import*
 from numpy import *
+import matplotlib.pyplot as plt
+
+
+t_start = 0.
+t_end = 10000.
+dt = 0.1
+
+t = arange(t_start, t_end + dt,dt)
+
 
 C1_s = np.array([[-2*muc*(c/(Vt0**2)), 0, 0, 0],
                  [0, (CZadot -2*muc)*(c/Vt0), 0, 0],
@@ -51,5 +60,24 @@ D_a = np.array([[0,0],
        [0,0],
        [0,0]])
 
-sim_sys = ss(A_s, B_s, C_s, D_s)
-asim_sys = ss(A_a, B_a, C_a, D_a)
+sys_s = ss(A_s, B_s, C_s, D_s)
+sys_a = ss(A_a, B_a, C_a, D_a)
+
+#t_s, y_s = impulse_response(sys_s,t, X0 = 0.) 
+#t_a, y_a = impulse_response(sys_a,t, X0 = 0.) 
+
+t_s, y_s = step_response(sys_s,t, X0 = 0.) 
+t_a, y_a = step_response(sys_a,t, X0 = 0.) 
+
+plt.subplot(121)
+#plt.plot(t_s, y_s[0])
+plt.plot(t_s, y_s[1])
+plt.plot(t_s, y_s[2])
+plt.plot(t_s, y_s[3])
+
+plt.subplot(122)
+plt.plot(t_a, y_a[0])
+plt.plot(t_a, y_a[1])
+plt.plot(t_a, y_a[2])
+plt.plot(t_a, y_a[3])
+plt.show()
