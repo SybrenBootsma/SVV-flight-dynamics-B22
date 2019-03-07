@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 t_start = 0.
-t_end = 10000.
+t_end = 100.
 dt = 0.1
 
 t = arange(t_start, t_end + dt,dt)
@@ -69,15 +69,19 @@ sys_a = ss(A_a, B_a, C_a, D_a)
 t_s, y_s = step_response(sys_s,t, X0 = 0.) 
 t_a, y_a = step_response(sys_a,t, X0 = 0.) 
 
-plt.subplot(121)
-#plt.plot(t_s, y_s[0])
-plt.plot(t_s, y_s[1])
-plt.plot(t_s, y_s[2])
-plt.plot(t_s, y_s[3])
 
-plt.subplot(122)
-plt.plot(t_a, y_a[0])
-plt.plot(t_a, y_a[1])
-plt.plot(t_a, y_a[2])
-plt.plot(t_a, y_a[3])
+pzmap(sys_a)
+
 plt.show()
+#plt.subplot(121)
+#plt.plot(t_s, y_s[0])
+#plt.plot(t_s, y_s[1])
+#plt.plot(t_s, y_s[2])
+#plt.plot(t_s, y_s[3])
+#
+#plt.subplot(122)
+#plt.plot(t_a, y_a[0])
+#plt.plot(t_a, y_a[1])
+#plt.plot(t_a, y_a[2])
+#plt.plot(t_a, y_a[3])
+#plt.show()
