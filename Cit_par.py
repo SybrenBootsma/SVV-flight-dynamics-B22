@@ -1,25 +1,25 @@
-# Citation 550 - Linear simulation
+from numpy import *
+#Citation 550 - Linear simulation
 
-# xcg = 0.25 * c
 
-# Stationary flight condition
-
-hp0    =       	      # pressure altitude in the stationary flight condition [m]
-V0     =             # true airspeed in the stationary flight condition [m/sec]
-alpha0 =             # angle of attack in the stationary flight condition [rad]
-th0    =             # pitch angle in the stationary flight condition [rad]
+#Stationary flight condition
+#values guessed for first itteration
+hp0    = 1800.   	     # pressure altitude in the stationary flight condition [m]
+Vt0     = 82.         # true airspeed in the stationary flight condition [m/sec]
+alpha0 = 0.0872664626         # angle of attack in the stationary flight condition [rad]
+th0    = 0.0872664626*1.05           # pitch angle in the stationary flight condition [rad]
 
 # Aircraft mass
-m      =             # mass [kg]
+m      =   6600.          # mass [kg]
 
 # aerodynamic properties
-e      =             # Oswald factor [ ]
-CD0    =             # Zero lift drag coefficient [ ]
-CLa    =             # Slope of CL-alpha curve [ ]
+e      = 0.8         # Oswald factor [ ]
+CD0    = 0.04       # Zero lift drag coefficient [ ]
+CLa    = 5.084        # Slope of CL-alpha curve [ ]
 
 # Longitudinal stability
-Cma    =             # longitudinal stabilty [ ]
-Cmde   =             # elevator effectiveness [ ]
+Cma    = -0.5626         # longitudinal stabilty [ ]
+Cmde   = -1.1642       # elevator effectiveness [ ]
 
 # Aircraft geometry
 
@@ -35,17 +35,19 @@ A      = b ** 2 / S      # wing aspect ratio [ ]
 Ah     = bh ** 2 / Sh    # stabilser aspect ratio [ ]
 Vh_V   = 1	          # [ ]
 ih     = -2 * pi / 180   # stabiliser angle of incidence [rad]
+xcg = 0.25 * c
 
 # Constant values concerning atmosphere and gravity
 
 rho0   = 1.2250          # air density at sea level [kg/m^3] 
-lambda = -0.0065         # temperature gradient in ISA [K/m]
+Lambda = -0.0065         # temperature gradient in ISA [K/m]
 Temp0  = 288.15          # temperature at sea level in ISA [K]
 R      = 287.05          # specific gas constant [m^2/sec^2K]
 g      = 9.81            # [m/sec^2] (gravity constant)
 
+
 # air density [kg/m^3]  
-rho    = rho0 * power( ((1+(lambda * hp0 / Temp0))), (-((g / (lambda*R)) + 1)))   
+rho    = rho0 * power( ((1+(Lambda * hp0 / Temp0))), (-((g / (Lambda*R)) + 1)))   
 W      = m * g            # [N]       (aircraft weight)
 
 # Constant values concerning aircraft inertia
@@ -66,25 +68,26 @@ depsda = 4 / (A + 2)            # Downwash gradient [ ]
 
 # Lift and drag coefficient
 
-CL = 2 * W / (rho * V0 ** 2 * S)              # Lift coefficient [ ]
+CL = 2 * W / (rho * Vt0 ** 2 * S)              # Lift coefficient [ ]
 CD = CD0 + (CLa * alpha0) ** 2 / (pi * A * e) # Drag coefficient [ ]
 
 # Stabiblity derivatives
 
-CX0    = W * sin(th0) / (0.5 * rho * V0 ** 2 * S)
+CX0    = W * sin(th0) / (0.5 * rho * Vt0 ** 2 * S)
 CXu    = -0.02792
 CXa    = -0.47966
 CXadot = +0.08330
 CXq    = -0.28170
 CXde   = -0.03728
 
-CZ0    = -W * cos(th0) / (0.5 * rho * V0 ** 2 * S)
+CZ0    = -W * cos(th0) / (0.5 * rho * Vt0 ** 2 * S)
 CZu    = -0.37616
 CZa    = -5.74340
 CZadot = -0.00350
 CZq    = -5.66290
 CZde   = -0.69612
 
+Cm0    = +0.0297 #added from C.2
 Cmu    = +0.06990
 Cmadot = +0.17800
 Cmq    = -8.79415
