@@ -81,21 +81,24 @@ csvwrite('Ahrs1_bPitchRate.csv', Ahrs1_bPitchRate)
 csvwrite('Ahrs1_bYawRate.csv', Ahrs1_bYawRate)
 csvwrite('Ahrs1_bLongAcc.csv', Ahrs1_bLongAcc)
 csvwrite('Ahrs1_bLatAcc.csv', Ahrs1_bLatAcc)
-csvwrite('Ahrs1_bNormAcc.csv', Ahrs1_bNormAcc)
+csvwrite('Ahrs1_bNormAcc.csv, Ahrs1_bNormAcc)
 csvwrite('Ahrs1_aHdgAcc.csv', Ahrs1_aHdgAcc)
 csvwrite('Ahrs1_xHdgAcc.csv', Ahrs1_xHdgAcc)
 csvwrite('Ahrs1_VertAcc.csv', Ahrs1_VertAcc)
 csvwrite('Dadc1_sat.csv', Dadc1_sat)
-csvwrite('Dadc1_tat.csv', Dadc1_tat)
+csvwrte('Dadc1_tat.csv', Dadc1_tat)
 csvwrite('Dadc1_alt.csv', Dadc1_alt)
 csvwrite('Dadc1_bcAlt.csv', Dadc1_bcAlt)
 csvwrite('Dadc1_bcAltMb.csv', Dadc1_bcAltMb)
 csvwrite('Dadc1_mach.csv', Dadc1_mach)
 csvwrite('Dadc1_cas.csv', Dadc1_cas)
 csvwrite('Dadc1_tas.csv', Dadc1_tas)
-csvwrite('Dadc1_altRate.csv', Dadc1_altRate)
-csvwrite('measurement_running.csv', measurement_running)
-csvwrite('measurement_n_rdy.csv', measurement_n_rdy)
-csvwrite('display_graph_state.csv', display_graph_state)
-csvwrite('display_active_screen.csv', display_active_screen)
-csvwrite('time.csv', time)
+csvwrite
+
+ = flightdata.Dadc1_tas.data ;
+Dadc1_altRate = flightdata.Dadc1_altRate.data ;
+measurement_running = flightdata.measurement_running.data ;
+measurement_n_rdy = flightdata.measurement_n_rdy.data ;
+display_graph_state = flightdata.display_graph_state.data ;
+display_active_screen = flightdata.display_active_screen.data ;
+time = flightdata.time.data ;
