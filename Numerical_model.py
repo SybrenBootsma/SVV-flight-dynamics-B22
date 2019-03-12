@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 
 
 t_start = 0.
-t_end = 10.
-dt = 0.1
+t_end = 15.
+dt = 0.01
 
 t = arange(t_start, t_end + dt,dt)
 
@@ -15,10 +15,12 @@ C1_s = np.array([[-2*muc*(c/(Vt0**2)), 0, 0, 0],
                  [0, (CZadot -2*muc)*(c/Vt0), 0, 0],
                  [0, 0, -(c/Vt0), 0],
                  [0, Cmadot*(c/Vt0), 0, -2*muc*KY2*(c/Vt0)**2]])
+
 C2_s = np.array([[CXu*(1/Vt0), CXa, CZ0, CXq*(c/Vt0)],
                  [CZu*(1/Vt0), CZa, -CX0, (CZq+2*muc)*(c/Vt0)],
                  [0,0,0,(c/Vt0)],
                  [Cmu*(1/Vt0), Cma, 0, Cmq*(c/Vt0)]])
+
 C3_s = np.array([[CXde],
                  [CZde],
                  [0],
@@ -63,28 +65,28 @@ D_a = np.array([[0,0],
 sys_s = ss(A_s, B_s, C_s, D_s)
 sys_a = ss(A_a, B_a, C_a, D_a)
 
-u_s = []
-
-for i in range(len(t)):
-    if t[i] < 3.:
-        u_s.append(0.015)
-    else: 
-        u_s.append(0.)
-
- 
-u_a = []
-
-for i in range(len(t)):
-    if t[i] < 0.1:
-        u_a.append(0.025/dt)
-    else: 
-        u_a.append(0.)    
-
-
-print (u_s, shape(u_s)) 
+#u_s = []
+#
+#for i in range(len(t)):
+#    if t[i] < 3.:
+#        u_s.append(0.015)
+#    else: 
+#        u_s.append(0.)
+#
+# 
+#u_a = []
+#
+#for i in range(len(t)):
+#    if t[i] < 0.1:
+#        u_a.append(0.025/dt)
+#    else: 
+#        u_a.append(0.)    
+#
+#
+#print (u_s, shape(u_s)) 
 
 #t_s, y_s = impulse_response(sys_s,t, X0 = 0.) 
-#t_a, y_a = impulse_response(sys_a,t, X0 = 0., input = none) 
+t_a, y_a = impulse_response(sys_a,t, X0 = 0.0, input = 1)
 
 #t_s, y_s, xout = forced_response(sys_s,t, u_s, X0=0.)
 
@@ -92,7 +94,7 @@ print (u_s, shape(u_s))
 #t_a, y_a = step_response(sys_a,t, X0 = 0., input=1) 
 
 
-t_a, y_a, xout = forced_response(sys_s,t, u_a, X0=0.)
+#t_a, y_a, xout = forced_response(sys_s,t, u_a, X0=0.)
 
 
 ##plt.subplot(121)
