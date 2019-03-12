@@ -34,6 +34,10 @@ def velocity(V_IAS,hp,Tm):
         rho.append(rho_alt)
         Vt.append(Vt_x)
         Ve.append(Ve_x)
+    M = np.array(M)
+    Vt = np.array(Vt)
+    Ve = np.array(Ve)
+    rho = np.array(rho)
     
     return Vc, M, a, Vt, Ve, rho
     
