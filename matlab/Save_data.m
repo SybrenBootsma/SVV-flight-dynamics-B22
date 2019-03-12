@@ -50,6 +50,7 @@ measurement_n_rdy = flightdata.measurement_n_rdy.data ;
 display_graph_state = flightdata.display_graph_state.data ;
 display_active_screen = flightdata.display_active_screen.data ;
 time = flightdata.time.data ;
+time = transpose(time) ;
 
 csvwrite('vane_AOA.csv', vane_AOA)
 csvwrite('elevator_dte.csv', elevator_dte)
