@@ -63,30 +63,66 @@ D_a = np.array([[0,0],
 sys_s = ss(A_s, B_s, C_s, D_s)
 sys_a = ss(A_a, B_a, C_a, D_a)
 
-u_s = ones(len(t))
-u_s = u_s*0.015
-print (u_s) 
+u_s = []
+
+for i in range(len(t)):
+    if t[i] < 3.:
+        u_s.append(0.015)
+    else: 
+        u_s.append(0.)
+
+ 
+u_a = []
+
+for i in range(len(t)):
+    if t[i] < 0.1:
+        u_a.append(0.025/dt)
+    else: 
+        u_a.append(0.)    
+
+
+print (u_s, shape(u_s)) 
 
 #t_s, y_s = impulse_response(sys_s,t, X0 = 0.) 
 #t_a, y_a = impulse_response(sys_a,t, X0 = 0., input = none) 
 
-t_s, y_s = forced_response(sys_s,t, u_s, X0 = 0.) 
+#t_s, y_s, xout = forced_response(sys_s,t, u_s, X0=0.)
 
 #t_s, y_s = step_response(sys_s,t, X0 = 0.) 
-#t_a, y_a = step_response(sys_a,t, X0 = 0., input=0) 
+#t_a, y_a = step_response(sys_a,t, X0 = 0., input=1) 
+
+
+t_a, y_a, xout = forced_response(sys_s,t, u_a, X0=0.)
+
+
+##plt.subplot(121)
+#plt.subplot(221)
+#plt.plot(t_s, y_s[0], label = 'u')
+#plt.legend()
+#
+#plt.subplot(222)
+#plt.plot(t_s, y_s[1], label = 'alpha')
+#plt.legend()
+#
+#plt.subplot(223)
+#plt.plot(t_s, y_s[2], label = 'theta')
+#plt.legend()
+#
+#plt.subplot(224)
+#plt.plot(t_s, y_s[3], label = 'pitch reet')
+#plt.legend()
 
 
 
-#plt.subplot(121)
-plt.plot(t_s, y_s[0], label = 'u')
-plt.plot(t_s, y_s[1], label = 'alpha')
-plt.plot(t_s, y_s[2], label = 'theta')
-plt.plot(t_s, y_s[3], label = 'pitch reet')
-plt.legend()
+plt.subplot(221)
+plt.plot(t_a, y_a[0])
 
-#plt.subplot(122)
-#plt.plot(t_a, y_a[0])
-#plt.plot(t_a, y_a[1])
-#plt.plot(t_a, y_a[2])
-#plt.plot(t_a, y_a[3])
+plt.subplot(222)
+plt.plot(t_a, y_a[1])
+
+plt.subplot(223)
+plt.plot(t_a, y_a[2])
+
+plt.subplot(224)
+plt.plot(t_a, y_a[3])
 plt.show()
