@@ -6,6 +6,7 @@ Created on Tue Mar 12 15:01:51 2019
 """
 import numpy as np
 import matplotlib.pyplot as plt
+from Velocity_calc import velocity
 
 # Standard values used for calculation
 P0 = 101325 #Pa
@@ -54,11 +55,13 @@ def Cl_Cd(BEW, Vt, rho, S, T):
     
     return Cd, Cl
 
-out = Cl_Cd(BEW, Vt, rho, S, T)
+vel = velocity(IAS1, hp1, TAT1)  #Vc, M, a, Vt, Ve, rho
+T = 0
+out = Cl_Cd(BEW, vel[3], vel[5], S, T)
 plt.plot(AOA1, out[0])              #Cl-alpha graph
 plt.plot(AOA1, out[1])              #Cd-alpha graph
 plt.plot(out[1], out[0])            #Cl-Cd graph
 
 
-def Cmalpha_Cmdelta():
+#def Cmalpha_Cmdelta():
     
