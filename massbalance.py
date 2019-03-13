@@ -50,7 +50,7 @@ def massbalance(t):
     xcg = []
     W = []
     for i in range(len(t)):
-        #Fm = Ftot - (FUR[i] + FUL[i])
+        Fm = Ftot - (FUR[i] + FUL[i])
         if t[i] >= tb_bolle and t[i] <= te_bolle:
             Mom = BEM*xB + (MP1+MP2+M3R)*xP + (MCL+MCR)*xC + (M1L+M1R)*x1 + (M2L+M2R)*x2 + M3L*x3 + (np.interp(Fm, Fmlist, Fmom))*100.
         else:

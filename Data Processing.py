@@ -7,6 +7,7 @@ Created on Tue Mar 12 15:01:51 2019
 import numpy as np
 import matplotlib.pyplot as plt
 from Velocity_calc import velocity
+from massbalance import massbalance
 
 # Standard values used for calculation
 P0 = 101325 #Pa
@@ -72,17 +73,16 @@ def Cl_Cd(BEW, Fused, Vt, rho, S, T):
 # Calculation graphs with results from test 1
 vel1 = velocity(IAS1, hp1, TAT1)  #Output: Vc, M, a, Vt, Ve, rho
 out1 = Cl_Cd(BEW, Fused1, vel1[3], vel1[5], S, T)
-plt.plot(AOA1, out1[0])              #Cl-alpha graph
-plt.plot(AOA1, out1[1])              #Cd-alpha graph
-plt.plot(out1[1], out1[0])            #Cl-Cd graph
+#plt.plot(AOA1, out1[0])              #Cl-alpha graph
+#plt.plot(AOA1, out1[1])              #Cd-alpha graph
+#plt.plot(out1[1], out1[0])            #Cl-Cd graph
 
 
 #Calculation of Cmalpha, Cmdelta (Measurement 2 + CG shift)
 vel2 = velocity(IAS3, hp3, TAT3) #Output: Vc, M, a, Vt, Ve, rho
 out2 = Cl_Cd(BEW, Fused3, vel2[3], vel2[5], S, T) #Output: Cl, Cd
-print (out2)
 
-
+mass = massbalance(time)
 
 def Cmalpha_Cmdelta(BEW, Fused, Ve, Deltae, Cl):
     
