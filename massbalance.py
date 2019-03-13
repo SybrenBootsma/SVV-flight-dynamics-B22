@@ -54,5 +54,6 @@ def massbalance(t):
         W.append(Wi*lbskg*g0)
     return (xcg, W)
 
-plt.plot(time, massbalance(time)[1])
-plt.show()
+#plt.plot(time, massbalance(time)[1])
+#plt.show()
+print(massbalance([9.2]))
