@@ -1,6 +1,6 @@
 from Cit_par import*
-from control import*
-from numpy import *
+import control as ctr
+import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -8,7 +8,7 @@ t_start = 0.
 t_end = 15.
 dt = 0.01
 
-t = arange(t_start, t_end + dt,dt)
+t = np.arange(t_start, t_end + dt,dt)
 
 
 C1_s = np.array([[-2*muc*(c/(Vt0**2)), 0, 0, 0],
@@ -62,8 +62,8 @@ D_a = np.array([[0,0],
        [0,0],
        [0,0]])
 
-sys_s = ss(A_s, B_s, C_s, D_s)
-sys_a = ss(A_a, B_a, C_a, D_a)
+sys_s = ctr.ss(A_s, B_s, C_s, D_s)
+sys_a = ctr.ss(A_a, B_a, C_a, D_a)
 
 #u_s = []
 #
@@ -85,8 +85,9 @@ sys_a = ss(A_a, B_a, C_a, D_a)
 #
 #print (u_s, shape(u_s)) 
 
-#t_s, y_s = impulse_response(sys_s,t, X0 = 0.) 
-t_a, y_a = impulse_response(sys_a,t, X0 = 0.0, input = 1)
+t_s, y_s = ctr.impulse_response(sys_s,t, X0 = 0.) 
+
+#t_a, y_a = impulse_response(sys_a,t, X0 = 0.0, input = 1)
 
 #t_s, y_s, xout = forced_response(sys_s,t, u_s, X0=0.)
 
@@ -97,34 +98,39 @@ t_a, y_a = impulse_response(sys_a,t, X0 = 0.0, input = 1)
 #t_a, y_a, xout = forced_response(sys_s,t, u_a, X0=0.)
 
 
-##plt.subplot(121)
-#plt.subplot(221)
-#plt.plot(t_s, y_s[0], label = 'u')
-#plt.legend()
-#
-#plt.subplot(222)
-#plt.plot(t_s, y_s[1], label = 'alpha')
-#plt.legend()
-#
-#plt.subplot(223)
-#plt.plot(t_s, y_s[2], label = 'theta')
-#plt.legend()
-#
-#plt.subplot(224)
-#plt.plot(t_s, y_s[3], label = 'pitch reet')
-#plt.legend()
-
-
 
 plt.subplot(221)
-plt.plot(t_a, y_a[0])
+plt.plot(t_s, y_s[0], label = 'u')
+plt.legend()
 
 plt.subplot(222)
-plt.plot(t_a, y_a[1])
+plt.plot(t_s, y_s[1], label = 'alpha')
+plt.legend()
 
 plt.subplot(223)
-plt.plot(t_a, y_a[2])
+plt.plot(t_s, y_s[2], label = 'theta')
+plt.legend()
 
 plt.subplot(224)
-plt.plot(t_a, y_a[3])
-plt.show()
+plt.plot(t_s, y_s[3], label = 'pitch rate')
+plt.legend()
+
+
+damp_s = ctr.damp(sys_s)
+damp_a = ctr.damp(sys_a)
+
+
+
+
+#plt.subplot(221)
+#plt.plot(t_a, y_a[0])
+#
+#plt.subplot(222)
+#plt.plot(t_a, y_a[1])
+#
+#plt.subplot(223)
+#plt.plot(t_a, y_a[2])
+#
+#plt.subplot(224)
+#plt.plot(t_a, y_a[3])
+#plt.show()
