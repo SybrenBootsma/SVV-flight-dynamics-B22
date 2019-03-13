@@ -7,6 +7,7 @@ Created on Tue Mar 12 15:01:51 2019
 import numpy as np
 import matplotlib.pyplot as plt
 from Velocity_calc import velocity
+from massbalance import massbalance
 
 # Standard values used for calculation
 P0 = 101325 #Pa
@@ -17,6 +18,7 @@ g0 = 9.80665 #m/s^2
 lapse = -0.0065 #degC/m
 S = 30.0 #m^2
 BEW = 9165.0 #lbs
+T = 0   #Thrust in Newton
 
 # Data from Stationary Measurement to calculate Cl, CD
 hp1 = np.array([5010, 5020, 5020, 5030, 5020, 5110]) #Pressure Altitude in ft
@@ -41,39 +43,60 @@ Fused2 = np.array([664, 694, 730, 755, 798, 825, 846]) #Fuel used in lbs
 TAT2 = np.array([5.5, 4.5, 3.5, 2.5, 5.0, 6.2, 8.2]) #Total air temperature in Celsius
 
 
-# Calculation of Cl and Cd, plot Cl-alpha, Cd-alpha, Cl-Cd graphs
+#Data from shift in Center of Gravity
+hp3 = np.array([5730, 5790]) #Pressure Altitude in ft
+IAS3 = np.array([161, 161]) #Indicated Airspeed in knots
+AOA3 = np.array([5.3, 5.3]) #Angle of Attack in deg
+Deltae3 = np.array([0, -0.5]) #Elevator Deflection in deg
+Deltatr3 = np.array([2.8, 2.8]) #Elevator trim tab Deflection in deg
+StickF3 = np.array([0, -30]) #Stick Force in Newton
+FFL3 = np.array([471, 468]) #Fuel Flow Left in lbs/hr
+FFR3 = np.array([493, 490]) #Fuel Flow Right in lbs/hr
+Fused3 = np.array([881, 910]) #Fuel used in lbs
+TAT3 = np.array([5.0, 5.0]) #Total air temperature in Celsius
+
+
+# Calculation of Cl and Cd, plot Cl-alpha, Cd-alpha, Cl-Cd graphs (Measurement 1)
 def Cl_Cd(BEW, Fused, Vt, rho, S, T):
     
     Mfuel = 4050 #lbs
     Mperson = 695 #kg
     
     Mtotal = BEW*0.453592 + Mfuel*0.453592 + Mperson - Fused*0.453592 #Total mass in kg
-    W = Mtotal*9.81     #Weight in Newton
+    W = Mtotal*9.80665     #Weight in Newton
     
     Cl = W/(0.5*rho*Vt**2*S)
     Cd = T/(0.5*rho*Vt**2*S)
     
-    return Cl, Cd, Mtotal
+    return Cl, Cd
 
 # Calculation graphs with results from test 1
-vel = velocity(IAS1, hp1, TAT1)  #Vc, M, a, Vt, Ve, rho
-T = 0
-out = Cl_Cd(BEW, Fused1, vel[3], vel[5], S, T)
-plt.plot(AOA1, out[0])              #Cl-alpha graph
-plt.plot(AOA1, out[1])              #Cd-alpha graph
-plt.plot(out[1], out[0])            #Cl-Cd graph
+vel1 = velocity(IAS1, hp1, TAT1)  #Output: Vc, M, a, Vt, Ve, rho
+out1 = Cl_Cd(BEW, Fused1, vel1[3], vel1[5], S, T)
+#plt.plot(AOA1, out1[0])              #Cl-alpha graph
+#plt.plot(AOA1, out1[1])              #Cd-alpha graph
+#plt.plot(out1[1], out1[0])            #Cl-Cd graph
 
 
-#Calculation of Cmalpha, Cmdelta
-def Cmalpha_Cmdelta(BEW, Fused, Ve):
+#Calculation of Cmalpha, Cmdelta (Measurement 2 + CG shift)
+vel2 = velocity(IAS3, hp3, TAT3) #Output: Vc, M, a, Vt, Ve, rho
+out2 = Cl_Cd(BEW, Fused3, vel2[3], vel2[5], S, T) #Output: Cl, Cd
+
+mass = massbalance(time)
+
+def Cmalpha_Cmdelta(BEW, Fused, Ve, Deltae, Cl):
     
     Ws = 60500      #Newton
     Mfuel = 4050 #lbs
     Mperson = 695 #kg
     Mtotal = BEW*0.453592 + Mfuel*0.453592 + Mperson - Fused*0.453592 #Total mass in kg
-    W = Mtotal*9.81     #Weight in Newton
+    W = Mtotal*9.80665     #Weight in Newton
     
     Vetilde = Ve*sqrt(Ws/W)
-     
+    Deltad  = Deltae[1] - Deltae[0]
+    Clavg = (Cl[0] + Cl[1])/2
+    cbar      = 2.0569	          # mean aerodynamic cord [m]
+    
+    
     
     
