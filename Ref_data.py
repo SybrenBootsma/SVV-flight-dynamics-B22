@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 time = np.genfromtxt("matlab/time.csv", dtype="float")
 pitch_rate = np.genfromtxt("matlab/Ahrs1_bPitchRate.csv", dtype="float")
 delta_e = np.genfromtxt("matlab/delta_e.csv", dtype="float")
-alpha_body = 
+alpha = np.genfromtxt("matlab/vane_AOA.csv", dtype="float") #body
+
 
 #pheugoid 250 sec
 for i in range(len(time)):
@@ -16,6 +17,8 @@ for i in range(len(time)):
 time_p = time[begin_p:end_p]
 pitch_rate_p = pitch_rate[begin_p:end_p]
 delta_e_p = delta_e[begin_p:end_p]
+alpha_p = alpha[begin_p:end_p]
+
 
 
 #short period 15 sec
@@ -28,14 +31,19 @@ for i in range(len(time)):
 time_s = time[begin_s:end_s]
 pitch_rate_s = pitch_rate[begin_s:end_s]
 delta_e_s = delta_e[begin_s:end_s]
+alpha_s = alpha[begin_s:end_s]
+
+
 
 plt.subplot(121)
 plt.plot(time_p,pitch_rate_p, label = 'pitch rate')
 plt.plot(time_p,delta_e_p, label = 'delta e')
+plt.plot(time_p,alpha_p, label = 'alpha')
 plt.legend()
 
 plt.subplot(122)
 plt.plot(time_s,pitch_rate_s, label = 'pitch rate')
 plt.plot(time_s,delta_e_s, label = 'delta e')
+plt.plot(time_s,alpha_s, label = 'alpha')
 plt.legend()
 plt.show()
