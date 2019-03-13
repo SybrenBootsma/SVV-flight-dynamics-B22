@@ -1,4 +1,4 @@
-from numpy import *
+import numpy as np
 #Citation 550 - Linear simulation
 
 
@@ -34,7 +34,7 @@ bh     = 5.791	          # stabilser span [m]
 A      = b ** 2 / S      # wing aspect ratio [ ]
 Ah     = bh ** 2 / Sh    # stabilser aspect ratio [ ]
 Vh_V   = 1	          # [ ]
-ih     = -2 * pi / 180   # stabiliser angle of incidence [rad]
+ih     = -2 * np.pi / 180   # stabiliser angle of incidence [rad]
 xcg = 0.25 * c
 
 # Constant values concerning atmosphere and gravity
@@ -47,7 +47,7 @@ g      = 9.81            # [m/sec^2] (gravity constant)
 
 
 # air density [kg/m^3]  
-rho    = rho0 * power( ((1+(Lambda * hp0 / Temp0))), (-((g / (Lambda*R)) + 1)))   
+rho    = rho0 * np.power( ((1+(Lambda * hp0 / Temp0))), (-((g / (Lambda*R)) + 1)))   
 W      = m * g            # [N]       (aircraft weight)
 
 # Constant values concerning aircraft inertia
@@ -63,24 +63,24 @@ KY2    = 1.25 * 1.114
 
 Cmac   = 0                      # Moment coefficient about the aerodynamic centre [ ]
 CNwa   = CLa                    # Wing normal force slope [ ]
-CNha   = 2 * pi * Ah / (Ah + 2) # Stabiliser normal force slope [ ]
+CNha   = 2 * np.pi * Ah / (Ah + 2) # Stabiliser normal force slope [ ]
 depsda = 4 / (A + 2)            # Downwash gradient [ ]
 
 # Lift and drag coefficient
 
 CL = 2 * W / (rho * Vt0 ** 2 * S)              # Lift coefficient [ ]
-CD = CD0 + (CLa * alpha0) ** 2 / (pi * A * e) # Drag coefficient [ ]
+CD = CD0 + (CLa * alpha0) ** 2 / (np.pi * A * e) # Drag coefficient [ ]
 
 # Stabiblity derivatives
 
-CX0    = W * sin(th0) / (0.5 * rho * Vt0 ** 2 * S)
+CX0    = W * np.sin(th0) / (0.5 * rho * Vt0 ** 2 * S)
 CXu    = -0.02792
 CXa    = -0.47966
 CXadot = +0.08330
 CXq    = -0.28170
 CXde   = -0.03728
 
-CZ0    = -W * cos(th0) / (0.5 * rho * Vt0 ** 2 * S)
+CZ0    = -W * np.cos(th0) / (0.5 * rho * Vt0 ** 2 * S)
 CZu    = -0.37616
 CZa    = -5.74340
 CZadot = -0.00350
