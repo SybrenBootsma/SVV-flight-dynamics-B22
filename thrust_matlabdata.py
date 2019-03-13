@@ -80,5 +80,5 @@ subprocess.run('thrust.exe')
 print('Done')
 time.sleep(0.5)
 
-#Output is thrust.dat, sum both engine thrusts togeter
+#Output is thrust.dat, sum both engine thrusts together
 Tcs = np.sum(np.genfromtxt('thrust.dat', dtype = 'float'), axis = 1)
