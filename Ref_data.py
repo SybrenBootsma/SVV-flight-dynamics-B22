@@ -6,6 +6,11 @@ delta_e = np.genfromtxt("matlab/delta_e.csv", dtype="float")
 alpha = np.genfromtxt("matlab/vane_AOA.csv", dtype="float") #body
 
 
+for i in range(len(time)):
+    pitch_rate[i] = np.rad2deg(pitch_rate[i])
+    delta_e[i] = np.rad2deg(delta_e[i])
+    alpha[i] = np.rad2deg(alpha[i])
+
 #pheugoid 250 sec
 for i in range(len(time)):
     if time[i] == 3220.:
@@ -13,7 +18,7 @@ for i in range(len(time)):
     if time[i] == 3457.:
         end_p = i
 
-
+#pheugoid lists
 time_p = time[begin_p:end_p]
 pitch_rate_p = pitch_rate[begin_p:end_p]
 delta_e_p = delta_e[begin_p:end_p]
@@ -28,6 +33,7 @@ for i in range(len(time)):
     if time[i] == 3650.:
         end_s = i
 
+#shortperiod lists
 time_s = time[begin_s:end_s]
 pitch_rate_s = pitch_rate[begin_s:end_s]
 delta_e_s = delta_e[begin_s:end_s]
