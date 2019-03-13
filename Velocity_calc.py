@@ -7,16 +7,17 @@ Created on Tue Mar 12 15:31:51 2019
 from math import *
 import numpy as np
 
+p0 = 101325             #Pa ISA
+rho0 = 1.225            #Kg/m3
+lapse = -6.5 * 10**(-3)     #deg C/m
+T0 = 288.15
+R = 287.057
+g0= 9.80665
+gamma = 1.4
+
 def velocity(V_IAS,hp,Tm):
     Tm = Tm + 273.15
     hp = hp * 0.3048
-    p0 = 101325             #Pa ISA
-    rho0 = 1.225            #Kg/m3
-    lapse = -6.5 * 10**(-3)     #deg C/m
-    T0 = 288.15
-    R = 287.057
-    g0= 9.80665
-    gamma = 1.4
     Vc = (V_IAS - 2)*0.514444
     p = p0 * (1 + (lapse * hp)/T0)**(-g0/(lapse*R))
     M = []
