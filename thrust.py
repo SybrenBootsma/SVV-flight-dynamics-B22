@@ -15,12 +15,14 @@ def hp2TISA(hp):
     return t
 
 #%%Specify data paths, note that this .py script should be 
-#in same directory as the matlab folder
+#in same directory as the matlab folder and thrust.exe
 hploc  = 'matlab/Dadc1_alt.csv'
 Mloc   = 'matlab/Dadc1_mach.csv'
 TATloc = 'matlab/Dadc1_tat.csv'
 FFlloc = 'matlab/lh_engine_FMF.csv'
 FFrloc = 'matlab/rh_engine_FMF.csv'
+t0 = 26000 #index of starting point of calculation
+t1 = 27000 #index of endpoint of calculation
 
 #%% Create matlab.dat [height M deltatemp FFl FFr]
 #Pressure alt. (hp)
@@ -52,7 +54,7 @@ FFrlist = FFrlist * 0.45359237/3600
 #%% Create thrust files
 #Make file for nonstandart thrust
 matlab = open('matlab.dat','w+')
-for i in range(25001,27000):
+for i in range(t0,t1):
      matlab.write(str(int(round(hplist[i],0))) +' '+ str(format(Mlist[i], '.4f')) +' '+ str(round(Dtemplist[i],4)) +' '+ str(round(FFllist[i],5)) +' '+ str(round(FFrlist[i],5)) + "\n")
 matlab.close()
 
@@ -68,7 +70,7 @@ Tc = np.sum(np.genfromtxt('thrust.dat', dtype = 'float'), axis = 1)
 #Make file for standard thrust
 mdot_fs = 0.048 #mfs = 0.048 for standard thrust
 matlab = open('matlab.dat','w+')
-for i in range(25001,27000): 
+for i in range(t0,t1): 
      matlab.write(str(int(round(hplist[i],0))) +' '+ str(format(Mlist[i], '.4f')) +' '+ str(round(Dtemplist[i],4)) +' '+ str(mdot_fs) +' '+ str(mdot_fs) + "\n")
 matlab.close()
 
@@ -80,6 +82,3 @@ time.sleep(0.5)
 
 #Output is thrust.dat, sum both engine thrusts togeter
 Tcs = np.sum(np.genfromtxt('thrust.dat', dtype = 'float'), axis = 1)
-
-
-
