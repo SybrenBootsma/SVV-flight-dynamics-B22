@@ -43,7 +43,7 @@ Fused2 = np.array([664, 694, 730, 755, 798, 825, 846]) #Fuel used in lbs
 TAT2 = np.array([5.5, 4.5, 3.5, 2.5, 5.0, 6.2, 8.2]) #Total air temperature in Celsius
 
 
-#Data from shift in Center of Gravity
+# Data from shift in Center of Gravity
 hp3 = np.array([5730, 5790]) #Pressure Altitude in ft
 IAS3 = np.array([161, 161]) #Indicated Airspeed in knots
 AOA3 = np.array([5.3, 5.3]) #Angle of Attack in deg
@@ -79,10 +79,13 @@ out1 = Cl_Cd(BEW, Fused1, vel1[3], vel1[5], S, T)
 
 
 #Calculation of Cmalpha, Cmdelta (Measurement 2 + CG shift)
-vel2 = velocity(IAS3, hp3, TAT3) #Output: Vc, M, a, Vt, Ve, rho
-out2 = Cl_Cd(BEW, Fused3, vel2[3], vel2[5], S, T) #Output: Cl, Cd
+vel2 = velocity(IAS2, hp2, TAT2) #Output: Vc, M, a, Vt, Ve, rho
+out2 = Cl_Cd(BEW, Fused2, vel2[3], vel2[5], S, T) #Output: Cl, Cd
 
-mass = massbalance(time)
+vel3 = velocity(IAS3, hp3, TAT3) #Output: Vc, M, a, Vt, Ve, rho
+out3 = Cl_Cd(BEW, Fused3, vel3[3], vel3[5], S, T) #Output: Cl, Cd
+
+#mass = massbalance(time)
 
 def Cmalpha_Cmdelta(BEW, Fused, Ve, Deltae, Cl):
     
@@ -96,6 +99,10 @@ def Cmalpha_Cmdelta(BEW, Fused, Ve, Deltae, Cl):
     Deltad  = Deltae[1] - Deltae[0]
     Clavg = (Cl[0] + Cl[1])/2
     cbar      = 2.0569	          # mean aerodynamic cord [m]
+    #DeltaCG
+    
+    Cmdelta = -(1/Deltad)*Clavg*(DeltaCG/cbar)
+    
     
     
     
