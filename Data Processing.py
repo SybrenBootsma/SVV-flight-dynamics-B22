@@ -41,27 +41,39 @@ Fused2 = np.array([664, 694, 730, 755, 798, 825, 846]) #Fuel used in lbs
 TAT2 = np.array([5.5, 4.5, 3.5, 2.5, 5.0, 6.2, 8.2]) #Total air temperature in Celsius
 
 
-def Cl_Cd(BEW, Vt, rho, S, T):
+# Calculation of Cl and Cd, plot Cl-alpha, Cd-alpha, Cl-Cd graphs
+def Cl_Cd(BEW, Fused, Vt, rho, S, T):
     
-    # Calculation of Cl and Cd, plot Cl-alpha, Cd-alpha, Cl-Cd graphs
     Mfuel = 4050 #lbs
     Mperson = 695 #kg
     
-    Mtotal = BEW*0.453592 + Mfuel*0.453592 + Mperson - Fused1 #Total mass in kg
+    Mtotal = BEW*0.453592 + Mfuel*0.453592 + Mperson - Fused*0.453592 #Total mass in kg
     W = Mtotal*9.81     #Weight in Newton
     
     Cl = W/(0.5*rho*Vt**2*S)
     Cd = T/(0.5*rho*Vt**2*S)
     
-    return Cd, Cl
+    return Cl, Cd, Mtotal
 
+# Calculation graphs with results from test 1
 vel = velocity(IAS1, hp1, TAT1)  #Vc, M, a, Vt, Ve, rho
 T = 0
-out = Cl_Cd(BEW, vel[3], vel[5], S, T)
+out = Cl_Cd(BEW, Fused1, vel[3], vel[5], S, T)
 plt.plot(AOA1, out[0])              #Cl-alpha graph
 plt.plot(AOA1, out[1])              #Cd-alpha graph
 plt.plot(out[1], out[0])            #Cl-Cd graph
 
 
-#def Cmalpha_Cmdelta():
+#Calculation of Cmalpha, Cmdelta
+def Cmalpha_Cmdelta(BEW, Fused, Ve):
+    
+    Ws = 60500      #Newton
+    Mfuel = 4050 #lbs
+    Mperson = 695 #kg
+    Mtotal = BEW*0.453592 + Mfuel*0.453592 + Mperson - Fused*0.453592 #Total mass in kg
+    W = Mtotal*9.81     #Weight in Newton
+    
+    Vetilde = Ve*sqrt(Ws/W)
+     
+    
     
