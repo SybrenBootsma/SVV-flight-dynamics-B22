@@ -111,7 +111,7 @@ def Cmdelta(BEW, Fused, Ve, Deltae, Cl, Tcs, Tc, mass, StickF):
     Cmtc = -0.0064      # Clean Cruise dimensionless thrust moment arm 
     Destar = Deltae - (1/Cmdelta)*Cmtc*(Tcs - Tc) #Calculate Reduced Elevator Deflection
     
-    Stick = StickF*np.sqrt(Ws/W)
+    Stick = StickF*(Ws/W)
     
     return Vetilde, Cmdelta, Destar, Stick
 
