@@ -7,7 +7,8 @@ Created on Tue Mar 12 15:01:51 2019
 import numpy as np
 import matplotlib.pyplot as plt
 from Velocity_calc import velocity
-from massbalance import massbalance
+from massbalance import massbalance_gewichthajo
+time = np.genfromtxt("matlab/Our-data/time.csv", dtype="float")
 
 # Standard values used for calculation
 P0 = 101325 #Pa
@@ -85,9 +86,9 @@ out2 = Cl_Cd(BEW, Fused2, vel2[3], vel2[5], S, T) #Output: Cl, Cd
 vel3 = velocity(IAS3, hp3, TAT3) #Output: Vc, M, a, Vt, Ve, rho
 out3 = Cl_Cd(BEW, Fused3, vel3[3], vel3[5], S, T) #Output: Cl, Cd
 
-#mass = massbalance(time)
+mass = massbalance_gewichthajo(time)
 
-def Cmalpha_Cmdelta(BEW, Fused, Ve, Deltae, Cl):
+def Cmalpha_Cmdelta(BEW, Fused, Ve, Deltae, Cl, Tcs, Tc):
     
     Ws = 60500      #Newton
     Mfuel = 4050 #lbs
@@ -97,13 +98,17 @@ def Cmalpha_Cmdelta(BEW, Fused, Ve, Deltae, Cl):
     
     Vetilde = Ve*sqrt(Ws/W)
     Deltad  = Deltae[1] - Deltae[0]
-    Clavg = (Cl[0] + Cl[1])/2
+    Clavg = (Cl[0] + Cl[1])/2   # Cl based on data 3!
     cbar      = 2.0569	          # mean aerodynamic cord [m]
     #DeltaCG
     
     Cmdelta = -(1/Deltad)*Clavg*(DeltaCG/cbar)
     
+    Cmtc = -0.0064      # Clean Cruise dimensionless thrust moment arm 
+    Destar = Deltae - (1/Cmdelta)*Cmtc(Tcs - Tc) #Calculate Reduced Elevator Deflection
     
     
+    
+    return Cmdelta, Destar
     
     

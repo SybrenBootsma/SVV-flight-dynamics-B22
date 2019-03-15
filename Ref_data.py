@@ -30,9 +30,10 @@ delta_e_p = delta_e[begin_p:end_p]
 alpha_p = alpha[begin_p:end_p]
 
 
+
 hp0_p = hp[begin_p]*0.3048 
 tas_p = tas[begin_p]
-alpha_p = alpha[begin_p]
+alpha0_p = alpha[begin_p]
 pitch_p = pitch[begin_p]
 
 
@@ -50,15 +51,15 @@ delta_e_s = delta_e[begin_s:end_s]
 alpha_s = alpha[begin_s:end_s]
 
 
-#plt.subplot(121)
-#plt.plot(time_p,pitch_rate_p, label = 'pitch rate')
-#plt.plot(time_p,delta_e_p, label = 'delta e')
-#plt.plot(time_p,alpha_p, label = 'alpha')
-#plt.legend()
-#
-#plt.subplot(122)
-#plt.plot(time_s,pitch_rate_s, label = 'pitch rate')
-#plt.plot(time_s,delta_e_s, label = 'delta e')
-#plt.plot(time_s,alpha_s, label = 'alpha')
-#plt.legend()
-#plt.show()
+plt.subplot(121)
+plt.plot(time_p,pitch_rate_p, label = 'pitch rate')
+plt.plot(time_p,delta_e_p, label = 'delta e')
+plt.plot(time_p,alpha_p, label = 'alpha')
+plt.legend()
+
+plt.subplot(122)
+plt.plot(time_s,pitch_rate_s, label = 'pitch rate')
+plt.plot(time_s,delta_e_s, label = 'delta e')
+plt.plot(time_s,alpha_s, label = 'alpha')
+plt.legend()
+plt.show()

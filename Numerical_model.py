@@ -65,6 +65,11 @@ D_a = np.array([[0,0],
 sys_s = ctr.ss(A_s, B_s, C_s, D_s)
 sys_a = ctr.ss(A_a, B_a, C_a, D_a)
 
+for i in range(len(delta_e_p)):
+    delta_e_p[i] = np.deg2rad(delta_e_p[i])
+    pitch_rate_p[i] = np.deg2rad(pitch_rate_p[i])
+    
+
 #u_s = []
 #
 #for i in range(len(t)):
