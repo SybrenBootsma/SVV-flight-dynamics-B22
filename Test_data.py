@@ -5,8 +5,9 @@ Created on Fri Mar 15 10:41:49 2019
 @author: Sybren
 """
 
-import matplotlib.pylot as plt
+import matplotlib.pyplot as plt
 import math
+import numpy as np
 
 time = np.genfromtxt("matlab/Our-data/time.csv", dtype="float")
 pitch_rate = np.genfromtxt("matlab/Our-data/Ahrs1_bPitchRate.csv", dtype="float")
@@ -26,9 +27,9 @@ for i in range(len(time)):
     
 #pheugoid 250 sec
 for i in range(len(time)):
-    if time[i] == 3220.:
+    if time[i] == (41*60+28):
         begin_p = i
-    if time[i] == 3457.:
+    if time[i] == (43*60+55):
         end_p = i
 
 #pheugoid lists
@@ -47,9 +48,9 @@ pitch_p = pitch[begin_p]
 
 #short period 15 sec
 for i in range(len(time)):
-    if time[i] == 3630.:
+    if time[i] == (40*60+42):
         begin_s = i
-    if time[i] == 3650.:
+    if time[i] == (40*60+42+15):
         end_s = i
 
 #shortperiod lists
