@@ -30,7 +30,7 @@ hplist = [round(i * 0.3048, 4) for i in hplist] #convert feet to meters
 Mlist = velocity(IAS1, hp1, TAT1)
 #%%
 #Deltatemp
-TATlist = np.genfromtxt(TATloc, dtype = 'float')
+TATlist = TAT1
 for i in range(len(TATlist)):
     TATlist[i] = TATlist[i] + 275.15 #convert Celsius to Kelvin
 
@@ -42,8 +42,8 @@ for i in range(len(hplist)):
 Dtemplist = TATlist - TISAlist
 
 #Fuelflow
-FFllist = np.genfromtxt(FFlloc, dtype = 'float') #Left in [lbs/hr]
-FFrlist = np.genfromtxt(FFrloc, dtype = 'float') #Right
+FFllist = FLL1 #Left in [lbs/hr]
+FFrlist = FFR1 #Right
 
 FFllist = FFllist * 0.45359237/3600 #convert lbs/hr to kg/s
 FFrlist = FFrlist * 0.45359237/3600
