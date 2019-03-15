@@ -47,7 +47,7 @@ FFrlist = FFrlist * 0.45359237/3600
 #Make file for nonstandart thrust
 matlab = open('matlab.dat','w+')
 for i in range(len(hp1)):
-     matlab.write(str(int(round(hplist[i],0))) +' '+ str(Mlist[i]) +' '+ str(round(Dtemplist[i],4)) +' '+ str(round(FFllist[i],5)) +' '+ str(round(FFrlist[i],5)) + "\n")
+     matlab.write(str(int(round(hplist[i],0))) +' '+ str(round(Mlist[1][i],4)) +' '+ str(round(Dtemplist[i],4)) +' '+ str(round(FFllist[i],5)) +' '+ str(round(FFrlist[i],5)) + "\n")
 matlab.close()
 
 #Run thrust.exe and wait untill it has created matlab.dat
@@ -63,7 +63,7 @@ Tc = np.sum(np.genfromtxt('thrust.dat', dtype = 'float'), axis = 1)
 mdot_fs = 0.048 #mfs = 0.048 for standard thrust
 matlab = open('matlab.dat','w+')
 for i in range(len(hp1)): 
-     matlab.write(str(int(round(hplist[i],0))) +' '+ str(Mlist[i]) +' '+ str(round(Dtemplist[i],4)) +' '+ str(mdot_fs) +' '+ str(mdot_fs) + "\n")
+     matlab.write(str(int(round(hplist[i],0))) +' '+ str(round(Mlist[1][i],4)) +' '+ str(round(Dtemplist[i],4)) +' '+ str(mdot_fs) +' '+ str(mdot_fs) + "\n")
 matlab.close()
 
 #Run thrust.exe and wait untill it has created matlab.dat
