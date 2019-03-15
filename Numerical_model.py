@@ -2,7 +2,6 @@ from Cit_par import*
 import control as ctr
 import numpy as np
 import matplotlib.pyplot as plt
-from Ref_data import time_p, pitch_rate_p, delta_e_p , alpha_p
 
 
 t_start = 0.
@@ -68,6 +67,7 @@ sys_s = ctr.ss(A_s, B_s, C_s, D_s)
 sys_a = ctr.ss(A_a, B_a, C_a, D_a)
 
 
+
 #for i in range(len(delta_e_p)):
 #    delta_e_p[i] = np.deg2rad(delta_e_p[i])
  #   pitch_rate_p[i] = np.deg2rad(pitch_rate_p[i])
@@ -97,7 +97,7 @@ sys_a = ctr.ss(A_a, B_a, C_a, D_a)
 
 #t_a, y_a = impulse_response(sys_a,t, X0 = 0.0, input = 1)
 
-t_s, y_s, xout = ctr.forced_response(sys_s,time_p, delta_e_p, X0=0.)
+t_s, y_s, xout = ctr.forced_response(sys_s,time_p, delta_e_p, X0=0)
 
 #t_s, y_s = step_response(sys_s,t, X0 = 0.) 
 #t_a, y_a = step_response(sys_a,t, X0 = 0., input=1) 
@@ -105,21 +105,26 @@ t_s, y_s, xout = ctr.forced_response(sys_s,time_p, delta_e_p, X0=0.)
 
 #t_a, y_a, xout = forced_response(sys_s,t, u_a, X0=0.)
 
+for i in range(len(time_p)):
+    y_s[1][i] = y_s[1][i]+ alpha0_p
+    y_s[2][i] = y_s[2][i]+ pitch0_p
 
+plt.subplot(221)
+plt.plot(time_p, y_s[0], label = 'u')
+plt.plot(time_p, tas_p, label ='u data')
+plt.legend()
 
-#plt.subplot(221)
-#plt.plot(t_s, y_s[0], label = 'u')
-#plt.legend()
-#
-#plt.subplot(222)
-#plt.plot(t_s, y_s[1], label = 'alpha')
-#plt.legend()
-#
-#plt.subplot(223)
-#plt.plot(t_s, y_s[2], label = 'theta')
-#plt.legend()
+plt.subplot(222)
+plt.plot(time_p, y_s[1], label = 'alpha')
+plt.plot (time_p, alpha_p,  label ='alpha data')
+plt.legend()
 
-#plt.subplot(224)
+plt.subplot(223)
+plt.plot(time_p, y_s[2], label = 'theta')
+plt.plot(time_p, pitch_p, label = 'theta data' )
+plt.legend()
+
+plt.subplot(224)
 plt.plot(time_p, y_s[3], label = 'pitch rate')
 plt.plot(time_p, pitch_rate_p, label = 'pitch rate data')
 plt.legend()
