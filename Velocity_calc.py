@@ -57,11 +57,10 @@ def velocity2(V_IAS,hp,Tm):
     Vc = (V_IAS - 2)*0.514444
     p = p0 * (1 + (lapse * hp)/T0)**(-g0/(lapse*R))
     Mach = sqrt(2/(gamma - 1) * ((1+(p0/p)*((1+(gamma-1)/(2*gamma) * (rho0/p0)*Vc**2.)**(gamma/(gamma-1)) - 1))**((gamma - 1)/gamma) - 1))
-    T = Tm[i] / (1 + (gamma-1)/2 * Mach**2.)
+    T = Tm / (1 + (gamma-1)/2 * Mach**2.)
     a = sqrt(gamma*R*T)
-    Vt_x = Mach*a
+    Vt = Mach*a
     rho_alt = rho0 * (T/T0)**(-(g0/(lapse*R) + 1))
-    Ve_x = Vt_x * sqrt(rho_alt/rho0)
+    Ve = Vt_x * sqrt(rho_alt/rho0)
     return Vc, M, a, Vt, Ve, rho
     
-v = velocity2(V_IAS, hp, Tm)
