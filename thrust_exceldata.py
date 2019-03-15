@@ -3,7 +3,8 @@ import numpy as np
 import subprocess
 import time
 from Data_Processing import *
-from Velocity_calc import *
+from Velocity_calc import velocity
+
 #Define functions
 #Takes pressure altitude in meters and returns ISA temperature in Kelvins
 def hp2TISA(hp):
