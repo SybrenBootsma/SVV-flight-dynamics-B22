@@ -34,15 +34,13 @@ xB = 292.18
 g0 = 9.80665
 inmet = 0.0254
 
-
 tb_bolle = 1000.1
 te_bolle = 1500.1
 Fm = 550. #lbs
 
-time = np.genfromtxt("matlab/Our-data/time.csv", dtype="float")
+t = np.genfromtxt("matlab/Our-data/time.csv", dtype="float")
 FUR = np.genfromtxt("matlab/rh_engine_FU.csv", dtype="float")
 FUL = np.genfromtxt("matlab/lh_engine_FU.csv", dtype="float")
-
 
 
 # enter time as a list
@@ -63,8 +61,8 @@ def massbalance(t):
         W.append(Wi*lbskg*g0)
     return (xcg, W)
 
-plt.plot(time, massbalance(time)[0])
-plt.show()
+#plt.plot(t, massbalance(t)[0])
+#plt.show()
 
 def massbalance_gewichthajo(t):
     #import time table
@@ -94,4 +92,4 @@ def massbalance_gewichthajo(t):
     delta_cg = xcg2 - xcg1
     return delta_cg
 
-delta_cg = massbalance_gewichthajo(time)
+delta_cg = massbalance_gewichthajo(t)
