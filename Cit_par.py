@@ -1,13 +1,14 @@
 import numpy as np
+from Ref_data import Pheugoid, Short_period
 #Citation 550 - Linear simulation
 
-
+time_p, pitch_rate_p, delta_e_p, alpha_p,pitch_p, hp0_p, tas_p, alpha0_p, pitch0_p = Pheugoid()
 #Stationary flight condition
 #values guessed for first itteration
-hp0    = 1800.   	     # pressure altitude in the stationary flight condition [m]
-Vt0     = 82.         # true airspeed in the stationary flight condition [m/sec]
-alpha0 = 0.0872664626         # angle of attack in the stationary flight condition [rad]
-th0    = 0.0872664626*1.05           # pitch angle in the stationary flight condition [rad]
+hp0    = hp0_p  	     # pressure altitude in the stationary flight condition [m]
+Vt0     = tas_p        # true airspeed in the stationary flight condition [m/sec]
+alpha0 = alpha0_p         # angle of attack in the stationary flight condition [rad]
+th0    = pitch0_p          # pitch angle in the stationary flight condition [rad]
 
 # Aircraft mass
 m      =   6600.          # mass [kg]
