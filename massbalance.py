@@ -35,9 +35,9 @@ g0 = 9.80665
 inmet = 0.0254
 
 
-tb_bolle = 1000.1
-te_bolle = 1500.1
-Fm = 550. #lbs
+#tb_bolle = 1000.1
+#te_bolle = 1500.1
+#Fm = 550. #lbs
 
 time = np.genfromtxt("matlab/time.csv", dtype="float")
 FUR = np.genfromtxt("matlab/rh_engine_FU.csv", dtype="float")
@@ -50,11 +50,11 @@ def massbalance(t):
     xcg = []
     W = []
     for i in range(len(t)):
-        #Fm = Ftot - (FUR[i] + FUL[i])
-        if t[i] >= tb_bolle and t[i] <= te_bolle:
-            Mom = BEM*xB + (MP1+MP2+M3R)*xP + (MCL+MCR)*xC + (M1L+M1R)*x1 + (M2L+M2R)*x2 + M3L*x3 + (np.interp(Fm, Fmlist, Fmom))*100.
-        else:
-            Mom = BEM*xB + (MP1+MP2)*xP + (MCL+MCR)*xC + (M1L+M1R)*x1 + (M2L+M2R)*x2 + (M3L+M3R)*x3 + (np.interp(Fm, Fmlist, Fmom))*100.
+        Fm = Ftot - (FUR[i] + FUL[i])
+        #if t[i] >= tb_bolle and t[i] <= te_bolle:
+         #   Mom = BEM*xB + (MP1+MP2+M3R)*xP + (MCL+MCR)*xC + (M1L+M1R)*x1 + (M2L+M2R)*x2 + M3L*x3 + (np.interp(Fm, Fmlist, Fmom))*100.
+        #else:
+        Mom = BEM*xB + (MP1+MP2)*xP + (MCL+MCR)*xC + (M1L+M1R)*x1 + (M2L+M2R)*x2 + (M3L+M3R)*x3 + (np.interp(Fm, Fmlist, Fmom))*100.
         # Weight in lbs
         Wi = BEM + MP1 + MP2 + MCL + MCR + M1L + M1R + M2L + M2R + M3L + M3R + Fm 
         # xcg in m w.r.t. LEMAC
@@ -63,6 +63,7 @@ def massbalance(t):
         W.append(Wi*lbskg*g0)
     return (xcg, W)
 
-plt.plot(time, massbalance(time)[0])
-plt.show()
+#plt.plot(time, massbalance(time)[0])
+#plt.show()
+print(massbalance([3220.]))
 
