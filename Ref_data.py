@@ -29,14 +29,15 @@ def Pheugoid():
     pitch_rate_p = pitch_rate[begin_p:end_p]
     delta_e_p = delta_e[begin_p:end_p]
     alpha_p = alpha[begin_p:end_p]
+    pitch_p = pitch[begin_p:end_p]
     
     
     hp0_p = hp[begin_p]*0.3048 
     tas_p = tas[begin_p]
     alpha0_p = alpha[begin_p]
-    pitch_p = pitch[begin_p]
+    pitch0_p = pitch[begin_p]
     
-    return time_p, pitch_rate_p, delta_e_p, alpha_p, hp0_p, tas_p, alpha0_p, pitch_p
+    return time_p, pitch_rate_p, delta_e_p, alpha_p,pitch_p, hp0_p, tas_p, alpha0_p, pitch0_p
 
 
 def Short_period():
