@@ -25,32 +25,25 @@ for i in range(len(time)):
     alpha[i] = np.deg2rad(alpha[i])
     pitch[i] = np.deg2rad(pitch[i])
     
-#pheugoid 250 sec
+#phugoid 250 sec
 for i in range(len(time)):
     if time[i] == (41*60+28):
         begin_p = i
-    if time[i] == (43*60+55):
+    elif time[i] == (43*60+50):
         end_p = i
 
-#pheugoid lists
+#phugoid lists
 time_p = time[begin_p:end_p]
 pitch_rate_p = pitch_rate[begin_p:end_p]
 delta_e_p = delta_e[begin_p:end_p]
 alpha_p = alpha[begin_p:end_p]
 
 
-
-hp0_p = hp[begin_p]*0.3048 
-tas_p = tas[begin_p]
-alpha0_p = alpha[begin_p]
-pitch_p = pitch[begin_p]
-
-
 #short period 15 sec
 for i in range(len(time)):
     if time[i] == (40*60+42):
         begin_s = i
-    if time[i] == (40*60+42+15):
+    elif time[i] == (40*60+42+15):
         end_s = i
 
 #shortperiod lists
@@ -72,3 +65,10 @@ plt.plot(time_s,delta_e_s, label = 'delta e')
 plt.plot(time_s,alpha_s, label = 'alpha')
 plt.legend()
 plt.show()
+
+
+
+#hp0_p = hp[begin_p]*0.3048 
+#tas_p = tas[begin_p]
+#alpha0_p = alpha[begin_p]
+#pitch_p = pitch[begin_p]
