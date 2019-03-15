@@ -1,4 +1,4 @@
-load('FTISxprt-20190312_101442.mat')
+load('matlab.mat')
 
 data = flightdata
 

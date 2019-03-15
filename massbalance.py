@@ -35,9 +35,9 @@ g0 = 9.80665
 inmet = 0.0254
 
 
-#tb_bolle = 1000.1
-#te_bolle = 1500.1
-#Fm = 550. #lbs
+tb_bolle = 1000.1
+te_bolle = 1500.1
+Fm = 550. #lbs
 
 time = np.genfromtxt("matlab/time.csv", dtype="float")
 FUR = np.genfromtxt("matlab/rh_engine_FU.csv", dtype="float")
@@ -51,10 +51,6 @@ def massbalance(t):
     W = []
     for i in range(len(t)):
         Fm = Ftot - (FUR[i] + FUL[i])
-        #if t[i] >= tb_bolle and t[i] <= te_bolle:
-         #   Mom = BEM*xB + (MP1+MP2+M3R)*xP + (MCL+MCR)*xC + (M1L+M1R)*x1 + (M2L+M2R)*x2 + M3L*x3 + (np.interp(Fm, Fmlist, Fmom))*100.
-        #else:
-        Mom = BEM*xB + (MP1+MP2)*xP + (MCL+MCR)*xC + (M1L+M1R)*x1 + (M2L+M2R)*x2 + (M3L+M3R)*x3 + (np.interp(Fm, Fmlist, Fmom))*100.
         if t[i] >= tb_bolle and t[i] <= te_bolle:
             Mom = BEM*xB + (MP1+MP2+M3R)*xP + (MCL+MCR)*xC + (M1L+M1R)*x1 + (M2L+M2R)*x2 + M3L*x3 + (np.interp(Fm, Fmlist, Fmom))*100.
         else:
@@ -67,36 +63,6 @@ def massbalance(t):
         W.append(Wi*lbskg*g0)
     return (xcg, W)
 
-#plt.plot(time, massbalance(time)[0])
-#plt.show()
-print(massbalance([3220.]))
+plt.plot(time, massbalance(time)[0])
+plt.show()
 
-def massbalance_gewichthajo(t):
-    #import time table
-    #Time 1: Steady flight 2 -> measurement 6 before shift Hajo
-    #Time 2: Steady flight 2 -> measurement 7 shift Hajo
-    T1 = 51*60 + 2
-    T2 = 52*60 + 42
-    
-    i = t.findIndex(T1)
-    j = t.findIndex(T2)
-    
-    Fuel_used1 = 881
-    Fuel_used2 = 910
-    
-    Fm1 = Ftot - Fuel_used1
-    Fm2 = Ftot - Fuel_used2
-    
-    Mom1 = BEM*xB + (MP1+MP2)*xP + (MCL+MCR)*xC + (M1L+M1R)*x1 + (M2L+M2R)*x2 + (M3L+M3R)*x3 + (np.interp(Fm1, Fmlist, Fmom))*100.
-    Mom2 = BEM*xB + (MP1+MP2+M3R)*xP + (MCL+MCR)*xC + (M1L+M1R)*x1 + (M2L+M2R)*x2 + M3L*x3 + (np.interp(Fm1, Fmlist, Fmom))*100.
-                
-    # Weight in lbs
-    Wi = BEM + MP1 + MP2 + MCL + MCR + M1L + M1R + M2L + M2R + M3L + M3R + Fm 
-    
-    xcg1 = ((Mom1/Wi)-261.45)*inmet
-    xcg2 = ((Mom2/Wi)-261.45)*inmet
-    
-    delta_cg = xcg2 - xcg1
-    return delta_cg
-
-delta_cg = massbalance_gewichthajo(time)
