@@ -50,6 +50,7 @@ delta_e_s = delta_e[begin_s:end_s]
 alpha_s = alpha[begin_s:end_s]
 
 
+
 #plt.subplot(121)
 #plt.plot(time_p,pitch_rate_p, label = 'pitch rate')
 #plt.plot(time_p,delta_e_p, label = 'delta e')

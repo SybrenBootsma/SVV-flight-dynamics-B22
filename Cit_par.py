@@ -1,16 +1,22 @@
 import numpy as np
 #Citation 550 - Linear simulation
 
+#----------------ref data (for phugoid)-----------------
+#t = 3220 sec
+#mass     =   6686.929095020976 
+#hp0    = 1781. 
+#alpha0 = 0.09236107868628793 
+#
 
 #Stationary flight condition
 #values guessed for first itteration
-hp0    = 1800.   	     # pressure altitude in the stationary flight condition [m]
-Vt0     = 82.         # true airspeed in the stationary flight condition [m/sec]
-alpha0 = 0.0872664626         # angle of attack in the stationary flight condition [rad]
-th0    = 0.0872664626*1.05           # pitch angle in the stationary flight condition [rad]
+hp0    = 1781.   	           # pressure altitude in the stationary flight condition [m]
+Vt0    = 174.13                     # true airspeed in the stationary flight condition [m/sec]
+alpha0 = 0.09236107868628793        # angle of attack in the stationary flight condition [rad]
+th0    = 0.08113         # pitch angle in the stationary flight condition [rad]
 
 # Aircraft mass
-m      =   6600.          # mass [kg]
+m      =   6686.929095020976          # mass [kg]
 
 # aerodynamic properties
 e      = 0.8         # Oswald factor [ ]
