@@ -51,8 +51,9 @@ Tm = np.array([12.5, 10.5, 8.8, 7.2, 6, 5.2]) #Total air temperature in Celsius
 v = velocity(V_IAS, hp, Tm)
     
    
-#def velocity2(V_IAS,hp,Tm):
-#    Tm = Tm + 273.15
+def velocity2(V_IAS,hp,Tm):
+    Tm = Tm + 273.15
+    print (Tm)
 #    hp = hp * 0.3048
 #    Vc = (V_IAS - 2)*0.514444
 #    p = p0 * (1 + (lapse * hp)/T0)**(-g0/(lapse*R))
@@ -62,6 +63,6 @@ v = velocity(V_IAS, hp, Tm)
 #    Vt_x = Mach*a
 #    rho_alt = rho0 * (T/T0)**(-(g0/(lapse*R) + 1))
 #    Ve_x = Vt_x * sqrt(rho_alt/rho0)
-#    
-#    
-#v = velocity2(V_IAS, hp, Tm)
+    
+    
+v = velocity2(V_IAS, hp, Tm)
