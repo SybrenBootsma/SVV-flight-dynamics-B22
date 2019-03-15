@@ -2,6 +2,7 @@ from Cit_par import*
 import control as ctr
 import numpy as np
 import matplotlib.pyplot as plt
+from Ref_data import time_p , pitch_rate_p , delta_e_p
 
 
 t_start = 0.
@@ -65,6 +66,9 @@ D_a = np.array([[0,0],
 sys_s = ctr.ss(A_s, B_s, C_s, D_s)
 sys_a = ctr.ss(A_a, B_a, C_a, D_a)
 
+for i in range(len(delta_e_p)):
+    delta_e_p[i] = np.deg2rad(delta_e_p[i])
+    pitch_rate_p[i] = np.deg2rad(pitch_rate_p[i])
 #u_s = []
 #
 #for i in range(len(t)):
@@ -85,11 +89,11 @@ sys_a = ctr.ss(A_a, B_a, C_a, D_a)
 #
 #print (u_s, shape(u_s)) 
 
-t_s, y_s = ctr.impulse_response(sys_s,t, X0 = 0.) 
 
 #t_a, y_a = impulse_response(sys_a,t, X0 = 0.0, input = 1)
+#t_s, y_s = impulse_response(sys_s,t, X0 = 0.0, input = 0)
 
-#t_s, y_s, xout = forced_response(sys_s,t, u_s, X0=0.)
+t_s, y_s, xout = ctr.forced_response(sys_s,time_p, delta_e_p, X0=0.)
 
 #t_s, y_s = step_response(sys_s,t, X0 = 0.) 
 #t_a, y_a = step_response(sys_a,t, X0 = 0., input=1) 
@@ -99,38 +103,43 @@ t_s, y_s = ctr.impulse_response(sys_s,t, X0 = 0.)
 
 
 
-plt.subplot(221)
-plt.plot(t_s, y_s[0], label = 'u')
-plt.legend()
-
-plt.subplot(222)
-plt.plot(t_s, y_s[1], label = 'alpha')
-plt.legend()
-
-plt.subplot(223)
-plt.plot(t_s, y_s[2], label = 'theta')
-plt.legend()
-
-plt.subplot(224)
-plt.plot(t_s, y_s[3], label = 'pitch rate')
-plt.legend()
-
-
-damp_s = ctr.damp(sys_s)
-damp_a = ctr.damp(sys_a)
-
-
-
-
 #plt.subplot(221)
-#plt.plot(t_a, y_a[0])
+#plt.plot(t_s, y_s[0], label = 'u')
+#plt.legend()
 #
 #plt.subplot(222)
-#plt.plot(t_a, y_a[1])
+#plt.plot(t_s, y_s[1], label = 'alpha')
+#plt.legend()
 #
 #plt.subplot(223)
-#plt.plot(t_a, y_a[2])
+#plt.plot(t_s, y_s[2], label = 'theta')
+#plt.legend()
+
+#lt.subplot(224)
+plt.plot(time_p, y_s[3], label = 'pitch rate')
+plt.plot(time_p, pitch_rate_p, label = 'pitch rate data')
+plt.legend()
+
+
+#damp_s = ctr.damp(sys_s)
+#damp_a = ctr.damp(sys_a)
+
+
+
+#
+#plt.subplot(221)
+#plt.plot(t_a, y_a[0], label = 'beta')
+#plt.legend()
+#
+#plt.subplot(222)
+#plt.plot(t_a, y_a[1], label = 'roll')
+#plt.legend()
+#
+#plt.subplot(223)
+#plt.plot(t_a, y_a[2], label = 'roll rate')
+#plt.legend()
 #
 #plt.subplot(224)
-#plt.plot(t_a, y_a[3])
+#plt.plot(t_a, y_a[3], label = 'yaw rate')
+#plt.legend()
 #plt.show()
