@@ -8,7 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from Velocity_calc import velocity
 from massbalance import massbalance_gewichthajo
-time = np.genfromtxt("matlab/Our-data/time.csv", dtype="float")
+t = np.genfromtxt("matlab/Our-data/time.csv", dtype="float")
 
 # Standard values used for calculation
 P0 = 101325 #Pa
@@ -74,7 +74,7 @@ def Cl_Cd(BEW, Fused, Vt, rho, S, T):
 # Calculation graphs with results from test 1
 vel1 = velocity(IAS1, hp1, TAT1)  #Output: Vc, M, a, Vt, Ve, rho
 out1 = Cl_Cd(BEW, Fused1, vel1[3], vel1[5], S, T)
-#plt.plot(AOA1, out1[0])              #Cl-alpha graph
+plt.plot(AOA1, out1[0])              #Cl-alpha graph
 #plt.plot(AOA1, out1[1])              #Cd-alpha graph
 #plt.plot(out1[1], out1[0])            #Cl-Cd graph
 
@@ -86,9 +86,9 @@ out2 = Cl_Cd(BEW, Fused2, vel2[3], vel2[5], S, T) #Output: Cl, Cd
 vel3 = velocity(IAS3, hp3, TAT3) #Output: Vc, M, a, Vt, Ve, rho
 out3 = Cl_Cd(BEW, Fused3, vel3[3], vel3[5], S, T) #Output: Cl, Cd
 
-mass = massbalance_gewichthajo(time)
+mass = massbalance_gewichthajo(t)
 
-def Cmalpha_Cmdelta(BEW, Fused, Ve, Deltae, Cl, Tcs, Tc):
+def Cmalpha_Cmdelta(BEW, Fused, Ve, Deltae, Cl, Tcs, Tc, mass):
     
     Ws = 60500      #Newton
     Mfuel = 4050 #lbs
@@ -100,7 +100,7 @@ def Cmalpha_Cmdelta(BEW, Fused, Ve, Deltae, Cl, Tcs, Tc):
     Deltad  = Deltae[1] - Deltae[0]
     Clavg = (Cl[0] + Cl[1])/2   # Cl based on data 3!
     cbar      = 2.0569	          # mean aerodynamic cord [m]
-    #DeltaCG
+    DeltaCG = mass
     
     Cmdelta = -(1/Deltad)*Clavg*(DeltaCG/cbar)
     
@@ -109,6 +109,8 @@ def Cmalpha_Cmdelta(BEW, Fused, Ve, Deltae, Cl, Tcs, Tc):
     
     
     
-    return Cmdelta, Destar
+    return Vetilde, Cmdelta, Destar
+
+
     
     
