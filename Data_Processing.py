@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from Velocity_calc import velocity
 from massbalance import massbalance_gewichthajo
 from math import *
-t = np.genfromtxt("matlab/Our-data/time.csv", dtype="float")
+t = np.genfromtxt("matlab/time.csv", dtype="float")
 
 # Standard values used for calculation
 P0 = 101325 #Pa
@@ -70,7 +70,7 @@ def Cl_Cd(BEW, Fused, Vt, rho, S, T):
     W = Mtotal*9.80665     #Weight in Newton
     
     Cl = W/(0.5*rho*Vt**2*S)
-    Cd = T/(0.5*rho*Vt**2*S)
+    Cd = T/(0.5*rho*Vt**2*S)        # Thrust based on Measurement 1
     
     return Cl, Cd, W
 
@@ -80,7 +80,8 @@ ClCd1 = Cl_Cd(BEW, Fused1, vel1[3], vel1[5], S, T)
 #plt.plot(AOA1, ClCd1[0])              #Cl-alpha graph
 #plt.plot(AOA1, ClCd1[1])              #Cd-alpha graph
 #plt.plot(ClCd1[1], ClCd1[0])            #Cl-Cd graph
-
+CLalpha = np.polyfit(AOA1, ClCd1[0], 1)
+print(CLalpha)
 
 #Calculation of Cmalpha, Cmdelta (Measurement 2 + CG shift)
 vel2 = velocity(IAS2, hp2, TAT2) #Output: Vc, M, a, Vt, Ve, rho
