@@ -4,7 +4,6 @@ import subprocess
 import time
 from Data_Processing import *
 from Velocity_calc import *
-from Data Processing import hp1, IAS1, AOA1, FFL1, FFR1, Fused1, TAT1
 #%% Define functions
 #Takes pressure altitude in meters and returns ISA temperature in Kelvins
 def hp2TISA(hp):
