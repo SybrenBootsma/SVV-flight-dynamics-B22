@@ -30,9 +30,10 @@ delta_e_p = delta_e[begin_p:end_p]
 alpha_p = alpha[begin_p:end_p]
 
 
+
 hp0_p = hp[begin_p]*0.3048 
 tas_p = tas[begin_p]
-alpha_p = alpha[begin_p]
+alpha0_p = alpha[begin_p]
 pitch_p = pitch[begin_p]
 
 

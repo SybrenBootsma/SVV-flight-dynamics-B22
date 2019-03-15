@@ -2,7 +2,8 @@
 import numpy as np
 import subprocess
 import time
-from Data Processing import hp1, IAS1, AOA1, FFL1, FFR1, Fused1, TAT1
+from Data_Processing import *
+from Velocity_calc import *
 #%% Define functions
 #Takes pressure altitude in meters and returns ISA temperature in Kelvins
 def hp2TISA(hp):
@@ -17,22 +18,17 @@ def hp2TISA(hp):
 
 #%%Specify data paths, note that this .py script should be 
 #in same directory as the matlab folder and thrust.exe
-hploc  = 'matlab/Dadc1_alt.csv'
-Mloc   = 'matlab/Dadc1_mach.csv'
-TATloc = 'matlab/Dadc1_tat.csv'
-FFlloc = 'matlab/lh_engine_FMF.csv'
-FFrloc = 'matlab/rh_engine_FMF.csv'
 t0 = 26000 #index of starting point of calculation
 t1 = 27000 #index of endpoint of calculation
 
 #%% Create matlab.dat [height M deltatemp FFl FFr]
 #Pressure alt. (hp)
-hplist = np.genfromtxt(hploc, dtype = 'float')
+hplist = hp1
 hplist = [round(i * 0.3048, 4) for i in hplist] #convert feet to meters
 
 #Mach number
-Mlist = np.genfromtxt(Mloc, dtype = 'float')
-
+Mlist = velocity(IAS1, hp1, TAT1)
+#%%
 #Deltatemp
 TATlist = np.genfromtxt(TATloc, dtype = 'float')
 for i in range(len(TATlist)):
