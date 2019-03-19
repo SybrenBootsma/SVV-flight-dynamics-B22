@@ -8,7 +8,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from Velocity_calc import velocity
 from massbalance import massbalance_gewichthajo
-from math import *
 t = np.genfromtxt("matlab/time.csv", dtype="float")
 
 # Standard values used for calculation
@@ -21,8 +20,6 @@ lapse = -0.0065 #degC/m
 S = 30.0 #m^2
 BEW = 9165.0 #lbs
 T = 0   #Thrust in Newton
-Tcs = 5
-Tc = 5
 
 # Data from Stationary Measurement to calculate Cl, CD
 hp1 = np.array([5010, 5020, 5020, 5030, 5020, 5110]) #Pressure Altitude in ft
@@ -70,29 +67,29 @@ def Cl_Cd(BEW, Fused, Vt, rho, S, T):
     W = Mtotal*9.80665     #Weight in Newton
     
     Cl = W/(0.5*rho*Vt**2*S)
-    Cd = T/(0.5*rho*Vt**2*S)        # Thrust based on Measurement 1
+    Cd = T/(0.5*rho*Vt**2*S)
     
-    return Cl, Cd, W
+    return Cl, Cd
 
 # Calculation graphs with results from test 1
 vel1 = velocity(IAS1, hp1, TAT1)  #Output: Vc, M, a, Vt, Ve, rho
-ClCd1 = Cl_Cd(BEW, Fused1, vel1[3], vel1[5], S, T)
-#plt.plot(AOA1, ClCd1[0])              #Cl-alpha graph
-#plt.plot(AOA1, ClCd1[1])              #Cd-alpha graph
-#plt.plot(ClCd1[1], ClCd1[0])            #Cl-Cd graph
+out1 = Cl_Cd(BEW, Fused1, vel1[3], vel1[5], S, T)
+plt.plot(AOA1, out1[0])              #Cl-alpha graph
+#plt.plot(AOA1, out1[1])              #Cd-alpha graph
+#plt.plot(out1[1], out1[0])            #Cl-Cd graph
 CLalpha = np.polyfit(AOA1, ClCd1[0], 1)
 print(CLalpha)
 
 #Calculation of Cmalpha, Cmdelta (Measurement 2 + CG shift)
 vel2 = velocity(IAS2, hp2, TAT2) #Output: Vc, M, a, Vt, Ve, rho
-ClCd2 = Cl_Cd(BEW, Fused2, vel2[3], vel2[5], S, T) #Output: Cl, Cd
+out2 = Cl_Cd(BEW, Fused2, vel2[3], vel2[5], S, T) #Output: Cl, Cd
 
 vel3 = velocity(IAS3, hp3, TAT3) #Output: Vc, M, a, Vt, Ve, rho
-ClCd3 = Cl_Cd(BEW, Fused3, vel3[3], vel3[5], S, T) #Output: Cl, Cd
+out3 = Cl_Cd(BEW, Fused3, vel3[3], vel3[5], S, T) #Output: Cl, Cd
 
 mass = massbalance_gewichthajo(t)
 
-def Cmdelta(BEW, Fused, Ve, Deltae, Cl, Tcs, Tc, mass, StickF):
+def Cmalpha_Cmdelta(BEW, Fused, Ve, Deltae, Cl, Tcs, Tc, mass):
     
     Ws = 60500      #Newton
     Mfuel = 4050 #lbs
@@ -100,8 +97,8 @@ def Cmdelta(BEW, Fused, Ve, Deltae, Cl, Tcs, Tc, mass, StickF):
     Mtotal = BEW*0.453592 + Mfuel*0.453592 + Mperson - Fused*0.453592 #Total mass in kg
     W = Mtotal*9.80665     #Weight in Newton
     
-    Vetilde = Ve*np.sqrt(Ws/W)
-    Deltad  = Deltae[1] - Deltae[0] # Deltae based on data 3!
+    Vetilde = Ve*sqrt(Ws/W)
+    Deltad  = Deltae[1] - Deltae[0]
     Clavg = (Cl[0] + Cl[1])/2   # Cl based on data 3!
     cbar      = 2.0569	          # mean aerodynamic cord [m]
     DeltaCG = mass
@@ -109,7 +106,7 @@ def Cmdelta(BEW, Fused, Ve, Deltae, Cl, Tcs, Tc, mass, StickF):
     Cmdelta = -(1/Deltad)*Clavg*(DeltaCG/cbar)
     
     Cmtc = -0.0064      # Clean Cruise dimensionless thrust moment arm 
-    Destar = Deltae - (1/Cmdelta)*Cmtc*(Tcs - Tc) #Calculate Reduced Elevator Deflection
+    Destar = Deltae - (1/Cmdelta)*Cmtc(Tcs - Tc) #Calculate Reduced Elevator Deflection
     
     Stick = StickF*(Ws/W)
     
@@ -118,3 +115,7 @@ def Cmdelta(BEW, Fused, Ve, Deltae, Cl, Tcs, Tc, mass, StickF):
 Cmdelta1 = Cmdelta(BEW, Fused2, vel2[4], Deltae2, ClCd3[0], Tcs, Tc, mass, StickF2)
 plt.plot(Cmdelta1[0], Cmdelta1[2])  #Ve - Delta eq star plot
 plt.plot(Cmdelta1[0], Cmdelta1[3])  #Ve - Stick force plot
+
+
+    
+    
