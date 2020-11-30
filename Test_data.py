@@ -52,6 +52,20 @@ pitch_rate_s = pitch_rate[begin_s:end_s]
 delta_e_s = delta_e[begin_s:end_s]
 alpha_s = alpha[begin_s:end_s]
 
+#Dutch roll without damping
+for i in range(len(time)):
+    if time[i] == (40*60+42):
+        begin_d = i
+    elif time[i] == (40*60+42+15):
+        end_d = i
+
+#shortperiod lists
+time_d = time[begin_d:end_d]
+pitch_rate_d = pitch_rate[begin_d:end_]
+delta_e_d = delta_e[begin_d:end_d]
+alpha_d = alpha[begin_d:end_d]
+
+
 
 plt.subplot(121)
 plt.plot(time_p,pitch_rate_p, label = 'pitch rate')
@@ -67,8 +81,3 @@ plt.legend()
 plt.show()
 
 
-
-#hp0_p = hp[begin_p]*0.3048 
-#tas_p = tas[begin_p]
-#alpha0_p = alpha[begin_p]
-#pitch_p = pitch[begin_p]
